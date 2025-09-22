@@ -22,6 +22,15 @@ app.get('/', (req, res) => {
   res.send('Hello, this is your Express app!');
 });
 
+// User route
+const userRoute = require('./routes/userRoute');
+app.use('/user', userRoute, cors());
+
+
+// Post route
+const postRoute = require('./routes/postRoute');
+app.use('/post', postRoute, cors());
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
