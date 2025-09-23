@@ -1,5 +1,4 @@
 const { default: mongoose } = require('mongoose');
-const { create } = require('./User');
 
 const postSchema = new mongoose.Schema({
     postText: {
@@ -9,8 +8,7 @@ const postSchema = new mongoose.Schema({
     createdAt: String,
     imageUrl: String,
     createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        type: mongoose.Schema.Types.ObjectId, ref: 'user',
         require: true
     }
 

@@ -1,12 +1,13 @@
 const express = require('express');
-const { create } = require('../models/User');
+const Post = require('../models/Post');
 
 const router = express.Router();
 
-//Get All posts
+//Get All Posts
 router.get('/', async (req, res) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find()
+            .populate('createdBy');
         res.json(posts)
     } catch (err) {
         res.status(500).json({ message: err.message })
@@ -14,7 +15,7 @@ router.get('/', async (req, res) => {
 
 });
 
-//Create a  new post
+//Created New Post
 router.post('/', async (req, res) => {
     try {
         const data = {
@@ -24,16 +25,11 @@ router.post('/', async (req, res) => {
             imageUrl: req.body.imageUrl
         }
 
-        const userRef = await User.findOneAndUpdate(data, data, {
-            new: true,
-            upsert: true,
-            runValidators: true
-        });
         const postRes = await Post.create(data);
         res.status(201).json(postRes);
 
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(500).json({ message: err.message });
     }
 });
 

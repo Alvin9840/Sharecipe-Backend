@@ -3,7 +3,7 @@ const User = require('../models/User');
 
 const router = express.Router();
 
-//get all user
+// Get All Users
 router.get('/', async (req, res) => {
     try {
         const users = await User.find();
@@ -14,7 +14,17 @@ router.get('/', async (req, res) => {
 });
 
 
-//get user by Id
+// Get User By Email
+router.get('/:email', async (req, res) => {
+    const userEmail = req.params.email;
+    try {
+        const users = await User.findOne({ email: userEmail });
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 
 // Create a new user
 router.post('/', async (req, res) => {
