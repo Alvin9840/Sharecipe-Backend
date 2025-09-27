@@ -22,12 +22,12 @@ GET http://localhost:8000/post
 POST http://localhost:8000/post
 Content-Type: application/json
 
-# {
-#   "postText":"Sample Post Msg",
-#   "createdAt":"326347347",
-#   "createdBy":"68d073c216a35fee5f0b4d77",
-#   "imageUrl":"SampleUrl"
-# }
+{
+  "postText":"Sample Post Msg",
+  "createdAt":"326347347",
+  "createdBy":"68d073c216a35fee5f0b4d77",
+  "imageUrl":"SampleUrl"
+}
 
 ###
 PUT http://localhost:8000/post/like/68d20ecbeca1da1b646b8399
@@ -36,4 +36,16 @@ Content-Type: application/json
 {
   "userId": "68d073c216a35fee5f0b4d77",
   "isLike": true
+}
+
+###
+### 
+POST http://localhost:8000/comment 
+Content-Type: application/json
+
+{
+  "post":"68d20ecbeca1da1b646b8399", 
+  "createdBy":"68d073c216a35fee5f0b4d77", 
+  "commentText":"SamplenEwComment", 
+  "createdAt":"1234"
 }
