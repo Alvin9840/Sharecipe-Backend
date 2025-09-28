@@ -9,7 +9,14 @@ router.get('/', async (req, res) => {
         const posts = await Post.find()
             .populate('createdBy')
             .populate('likes')
-            .populate('comments').sort({ createdAt: -1 });
+            .populate({
+                path: 'comments',
+                populate: {
+                    path: 'createdBy',
+                    model: 'user'
+                }
+            })
+            .sort({ createdAt: -1 });
         res.json(posts)
     } catch (err) {
         res.status(500).json({ message: err.message })
