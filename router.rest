@@ -49,3 +49,6 @@ Content-Type: application/json
   "commentText":"SamplenEwComment", 
   "createdAt":"1234"
 }
+
+###
+DELETE http://localhost:8000/comment/68d73e35f6b4ef90234be7e0

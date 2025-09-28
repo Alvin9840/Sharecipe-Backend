@@ -21,14 +21,14 @@ router.post('/', async (req, res) => {
 
 
 // Delete Route 
-// router.delete("/:commentId", async (req, res) => {
-//     try {
-//         const commentId = req.params.commentId;
-//         const commentDeleteResp = await Comment.findByIdAndDelete({ _id: commentId })
-//         res.status(201).json(commentDeleteResp);
-//     } catch (error) {
-//         res.status(500).json({ message: error.message })
-//     }
-// })
+router.delete("/:commentId", async (req, res) => {
+    try {
+        const commentId = req.params.commentId;
+        const commentDeleteResp = await Comment.findByIdAndDelete({ _id: commentId })
+        res.status(201).json(commentDeleteResp);
+    } catch (error) {
+        res.status(500).json({ message: error.message })
+    }
+})
 
 module.exports = router;
