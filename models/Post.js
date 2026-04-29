@@ -4,13 +4,13 @@ const { default: mongoose } = require("mongoose")
 const postSchema = new mongoose.Schema({
     postText: {
         type: String,
-        require: true
+        required: true
     },
     createdAt: String,
     imageUrl: String,
     createdBy: {
         type: mongoose.Schema.Types.ObjectId, ref: 'user',
-        require: true
+        required: true
     },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'user' }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'comment' }]

@@ -38,7 +38,10 @@ router.post('/', async (req, res) => {
         res.status(201).json(postRes);
 
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(400).json({ 
+            message: err.message,
+            errors: err.errors
+        });
     }
 });
 
@@ -50,22 +53,25 @@ router.put('/like/:postId', async (req, res) => {
             userId: req.body.userId,
             isLike: req.body.isLike
         }
-        const post = await Post.findById(postId);
-        if (!post.likes) {
-            const updatePost = await Post.findByIdAndUpdate(postId, { likes: [] },
-                {
-                    upsert: true,
-                    runValidators: true
-                }
-            );
-            await updatePost.save();
-        }
-        const updatedPost = await Post.findById(postId);
-        data.isLike ? updatedPost.likes.push(data.userId) :
-            updatedPost.likes.pop(data.userId);
 
-        const result = await updatedPost.save()
-        res.status(201).json(result);
+        if (!data.userId) {
+            return res.status(400).json({ message: 'userId is required' });
+        }
+
+        const update = data.isLike
+            ? { $addToSet: { likes: data.userId } }
+            : { $pull: { likes: data.userId } };
+
+        const result = await Post.findByIdAndUpdate(postId, update, {
+            new: true,
+            runValidators: true
+        });
+
+        if (!result) {
+            return res.status(404).json({ message: 'Post not found' });
+        }
+
+        res.status(200).json(result);
 
     } catch (err) {
         res.status(500).json({ message: err.message });

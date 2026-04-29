@@ -35,16 +35,19 @@ router.post('/', async (req, res) => {
             image: req.body.image
         }
 
-        const userRef = await User.findOneAndUpdate(data, data, {
+        const userRes = await User.findOneAndUpdate({ email: data.email }, data, {
             new: true,
             upsert: true,
-            runValidators: true
+            runValidators: true,
+            setDefaultsOnInsert: true
         });
-        const userRes = await userRef.save();
         res.status(201).json(userRes);
 
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ 
+            message: err.message,
+            errors: err.errors
+        });
     }
 });
 
