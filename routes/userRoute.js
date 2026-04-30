@@ -1,3 +1,5 @@
+//處理 user 查詢與 upsert。
+
 const express = require('express');
 const User = require('../models/User');
 

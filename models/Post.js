@@ -1,3 +1,5 @@
+//post schema，存內容、作者、likes、comments。
+
 const { default: mongoose } = require("mongoose")
 
 

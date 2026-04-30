@@ -1,3 +1,5 @@
+//後端進入點。負責讀 .env、連 MongoDB、啟動 Express、掛載 routes。
+
 const express = require('express');
 require('dotenv').config()
 const { default: mongoose } = require('mongoose');

@@ -1,3 +1,5 @@
+//MongoDB user schema，存 name / email / image。
+
 const { default: mongoose } = require('mongoose');
 
 const userSchema = new mongoose.Schema({

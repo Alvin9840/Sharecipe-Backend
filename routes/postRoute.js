@@ -1,3 +1,5 @@
+//處理讀取所有貼文、建立貼文、like/unlike。
+
 const express = require('express');
 const Post = require('../models/Post');
 
